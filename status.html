@@ -17,8 +17,8 @@
         <div class="contenido">
         </div>
         <button id="btn">Acceder al servidor</button>
-        <div id="nyo" style="display:none;">
-            <video id="videonyo" src="SnapSave.io-Gato gritando nooooooo-(480p).mp4" controls></video>
+        <div id="nyo">
+            
         </div>
     </div>
 
@@ -53,8 +53,8 @@
             } else {
                 contenido.classList.add("error");
                 contenido.textContent = "Status: Error";
-                nyo.style.display="block";
-                videonyo.classList.add="autoplay";
+                var templatenyo = `<video id="videonyo" src="SnapSave.io-Gato gritando nooooooo-(480p).mp4" autoplay controls></video>`;
+                nyo.innerHTML+=templatenyo;
             }
         });
 
