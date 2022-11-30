@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ajax con XMLHttpRequest</title>
+    <link rel="stylesheet" href="01-estilo.css">
+</head>
+
+<body>
+
+    <div class="contenedor">
+        <h1>Status XMLHttpRequest</h1>
+        <div class="contenido">
+        </div>
+        <button id="btn">Acceder al servidor</button>
+        <div id="nyo" style="display:none;">
+            <video src="SnapSave.io-Gato gritando nooooooo-(480p).mp4" autoplay controls></video>
+        </div>
+    </div>
+
+
+    <script>
+        const imgURL = "https://media.gettyimages.com/vectors/programming-projection-vector-id483586453?s=2048x2048"
+        const contenido = document.querySelector(".contenido");
+        const btn = document.getElementById("btn");
+        //Creamos objeto xhr
+        const xhr = new XMLHttpRequest();
+        var nyo = document.getElementById("nyo")
+        //Evento load del hxr
+        xhr.addEventListener("load", function () {
+            console.log(this.response);
+            if (this.status === 200) {
+                contenido.classList.add("success");
+                contenido.textContent = "Status: Success";
+                var p = document.createElement('p');
+                p.textContent = `ID: ${this.response.id}`;
+                contenido.appendChild(p);
+                var p = document.createElement('p');
+                p.textContent = `Nombre: ${this.response.nombre}`;
+                contenido.appendChild(p);
+                var p = document.createElement('p');
+                p.textContent = `Contraseña: ${this.response.contrasena}`;
+                contenido.appendChild(p);
+                var p = document.createElement('p');
+                p.textContent = `Activo: ${this.response.activo}`;
+                contenido.appendChild(p);
+            } else {
+                contenido.classList.add("error");
+                contenido.textContent = "Status: Error";
+                nyo.style.display="block";
+            }
+
+
+        });
+
+        //alert(xhr.responseText); al ser un proceso sincrono, el send se queda en espera por lo que no se ve nada
+
+        //asignar evento a botón
+        btn.addEventListener("click", function () {
+            //INIT
+            xhr.open("GET", "./juser.son");
+            xhr.responseType = "json";
+
+            //SEND
+            xhr.send();
+        });
+
+
+    </script>
+
+</body>
+
+</html>
