@@ -13,22 +13,25 @@
 
     <div class="contenedor">
         <h1>Status XMLHttpRequest</h1>
+        <input id="texto" type="text">
         <div class="contenido">
         </div>
         <button id="btn">Acceder al servidor</button>
         <div id="nyo" style="display:none;">
-            <video src="SnapSave.io-Gato gritando nooooooo-(480p).mp4" autoplay controls></video>
+            <video id="videonyo" src="SnapSave.io-Gato gritando nooooooo-(480p).mp4" controls></video>
         </div>
     </div>
 
 
     <script>
+        const texto = document.getElementById("texto");
         const imgURL = "https://media.gettyimages.com/vectors/programming-projection-vector-id483586453?s=2048x2048"
         const contenido = document.querySelector(".contenido");
         const btn = document.getElementById("btn");
         //Creamos objeto xhr
         const xhr = new XMLHttpRequest();
-        var nyo = document.getElementById("nyo")
+        var nyo = document.getElementById("nyo");
+        var videonyo = document.getElementById("videonyo")
         //Evento load del hxr
         xhr.addEventListener("load", function () {
             console.log(this.response);
@@ -51,9 +54,8 @@
                 contenido.classList.add("error");
                 contenido.textContent = "Status: Error";
                 nyo.style.display="block";
+                videonyo.classList.add="autoplay";
             }
-
-
         });
 
         //alert(xhr.responseText); al ser un proceso sincrono, el send se queda en espera por lo que no se ve nada
@@ -61,9 +63,12 @@
         //asignar evento a botón
         btn.addEventListener("click", function () {
             //INIT
-            xhr.open("GET", "./juser.son");
+            if(texto.value=="user"){
+                xhr.open("GET", "./user.json");
+            }else{
+                xhr.open("GET", "./user.jon");
+            }
             xhr.responseType = "json";
-
             //SEND
             xhr.send();
         });
